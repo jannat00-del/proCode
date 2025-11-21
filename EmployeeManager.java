@@ -10,7 +10,7 @@ public class EmployeeManager {
     public static void main(String[] args) {
 
         // Show All Employees
-        if (args[0].equals("1")) {
+        if (args[0].equals("l")) {
             System.out.println("Loading data...");
             try {
                 BufferedReader r = new BufferedReader(
@@ -101,7 +101,7 @@ public class EmployeeManager {
         }
 
                                                             // Count Words
-        else if (args[0].contains("t")) {
+        else if (args[0].contains("c")) {
             System.out.println("Loading data...");
             try {
                 BufferedReader r = new BufferedReader(
@@ -168,7 +168,7 @@ public class EmployeeManager {
         }
 
                                                              // Delete Employee
-        else if (args[0].contains("-")) {
+        else if (args[0].contains("d")) {
             System.out.println("Loading data...");
             try {
                 BufferedReader r = new BufferedReader(
