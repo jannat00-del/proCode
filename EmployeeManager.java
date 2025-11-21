@@ -9,6 +9,14 @@ public class EmployeeManager {
 
     public static void main(String[] args) {
 
+                                                           // TASK 2 FIX: Early terminates fix
+        if (args == null || args.length != 1) {
+            System.out.println("Invalid number of arguments!");
+            System.out.println("Usage: java EmployeeManager <option>");
+            System.exit(1);
+        }
+        
+
         // Show All Employees
         if (args[0].equals("l")) {
             System.out.println("Loading data...");
@@ -32,7 +40,7 @@ public class EmployeeManager {
             System.out.println("Data Loaded.");
         }
 
-                                                    //  Random Employee
+                                                          // Random Employee  
         else if (args[0].equals("s")) {
             System.out.println("Loading data...");
             try {
@@ -48,14 +56,14 @@ public class EmployeeManager {
                 Random rand = new Random();
                 int idx = rand.nextInt(e.length);
 
-                System.out.println(e[idx].trim());      //Extra space removal=trim()
+                System.out.println(e[idx].trim());    //Extra space removel = trim()
                 r.close();
             } catch (Exception ex) {
             }
             System.out.println("Data Loaded.");
         }
 
-                                                // Add Employee
+                                                         // Add Employee
         else if (args[0].contains("+")) {
             System.out.println("Loading data...");
             try {
@@ -71,7 +79,7 @@ public class EmployeeManager {
             System.out.println("Data Loaded.");
         }
 
-                                                    // Search Employee
+                                                                    // Search Employee
         else if (args[0].contains("?")) {
             System.out.println("Loading data...");
             try {
@@ -100,7 +108,7 @@ public class EmployeeManager {
             System.out.println("Data Loaded.");
         }
 
-                                                            // Count Words
+                                                           // Count Words
         else if (args[0].contains("c")) {
             System.out.println("Loading data...");
             try {
@@ -134,7 +142,7 @@ public class EmployeeManager {
             System.out.println("Data Loaded.");
         }
 
-                                                        // Update Employee
+                                                                 // Update Employee
         else if (args[0].contains("u")) {
             System.out.println("Loading data...");
             try {
@@ -167,7 +175,7 @@ public class EmployeeManager {
             System.out.println("Data Updated.");
         }
 
-                                                             // Delete Employee
+                                                                   // Delete Employee
         else if (args[0].contains("d")) {
             System.out.println("Loading data...");
             try {
