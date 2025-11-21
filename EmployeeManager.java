@@ -7,53 +7,52 @@ import java.util.*;
 
 public class EmployeeManager {
 
-    private static final String FILE_NAME = "employees.txt";
 
-                                                       //  Reader File 
     private static String[] readEmployees() throws Exception {
         BufferedReader reader = new BufferedReader(
-                new InputStreamReader(new FileInputStream(FILE_NAME))
+                new InputStreamReader(new FileInputStream(Constants.FILE_NAME))
         );
 
         String line = reader.readLine();
         reader.close();
-        return line.split(",");
+        return line.split(Constants.COMMA);
     }
 
-                                                              //  Writer File
+    
     private static void writeEmployees(String data) throws Exception {
         BufferedWriter writer = new BufferedWriter(
-                new FileWriter(FILE_NAME)
+                new FileWriter(Constants.FILE_NAME)
         );
 
         writer.write(data);
         writer.close();
     }
 
-                                                                // Append New Employee 
+    
     private static void appendEmployee(String newEmployee) throws Exception {
         BufferedWriter writer = new BufferedWriter(
-                new FileWriter(FILE_NAME, true)
+                new FileWriter(Constants.FILE_NAME, true)
         );
 
-        writer.write(", " + newEmployee);
+        writer.write(Constants.COMMA_SPACE + newEmployee);
         writer.close();
     }
 
-    // ------------------------------------------------------------------
-
+    
     public static void main(String[] args) {
 
-                                                              // Task2 Fix: Early terminates fix
+    
         if (args == null || args.length != 1) {
-            System.out.println("Invalid number of arguments!");
-            System.out.println("Usage: java EmployeeManager <option>");
+            System.out.println(Constants.INVALID_ARGUMENT);
+            System.out.println(Constants.USAGE);
             System.exit(1);
         }
 
-                                                                    // All Employees (l)
-        if (args[0].equals("l")) {
-            System.out.println("Loading data...");
+        String option = args[0];
+
+        
+        if (option.equals(Constants.SHOW_ALL)) {
+            System.out.println(Constants.LOADING_DATA);
             try {
                 String[] employees = readEmployees();
 
@@ -61,14 +60,12 @@ public class EmployeeManager {
                     System.out.println(emp.trim());
                 }
 
-            } catch (Exception ex) {
-            }
-            System.out.println("Data Loaded.");
+            } catch (Exception ex) {}
+            System.out.println(Constants.DATA_LOADED);
         }
 
-                                                                      // Show Random Employee 
-        else if (args[0].equals("s")) {
-            System.out.println("Loading data...");
+        else if (option.equals(Constants.SHOW_RANDOM)) {
+            System.out.println(Constants.LOADING_DATA);
             try {
                 String[] employees = readEmployees();
                 Random rand = new Random();
@@ -76,47 +73,45 @@ public class EmployeeManager {
                 int randomIndex = rand.nextInt(employees.length);
                 System.out.println(employees[randomIndex].trim());
 
-            } catch (Exception ex) {
-            }
-            System.out.println("Data Loaded.");
+            } catch (Exception ex) {}
+            System.out.println(Constants.DATA_LOADED);
         }
 
-                                                                   // Add New Employee 
-        else if (args[0].contains("+")) {
-            System.out.println("Loading data...");
+                                                             // Add employee 
+        else if (option.contains(Constants.ADD_EMP)) {
+            System.out.println(Constants.LOADING_DATA);
             try {
-                String newEmployee = args[0].substring(1);
+                String newEmployee = option.substring(1);
                 appendEmployee(newEmployee);
-            } catch (Exception ex) {
-            }
-            System.out.println("Data Loaded.");
+
+            } catch (Exception ex) {}
+            System.out.println(Constants.DATA_LOADED);
         }
 
-                                                                  // Search Employee 
-        else if (args[0].contains("?")) {
-            System.out.println("Loading data...");
+                                                                   // Search employee 
+        else if (option.contains(Constants.SEARCH_EMP)) {
+            System.out.println(Constants.LOADING_DATA);
             try {
-                String searchName = args[0].substring(1);
+                String searchName = option.substring(1);
                 String[] employees = readEmployees();
 
                 boolean found = false;
 
                 for (String emp : employees) {
                     if (emp.trim().equals(searchName)) {
-                        System.out.println("Employee found!");
+                        System.out.println(Constants.EMPLOYEE_FOUND);
                         found = true;
                         break;
                     }
                 }
 
-            } catch (Exception ex) {
-            }
-            System.out.println("Data Loaded.");
+            } catch (Exception ex) {}
+            System.out.println(Constants.DATA_LOADED);
         }
 
-                                                                             // Count Words 
-        else if (args[0].contains("c")) {
-            System.out.println("Loading data...");
+                                                                // Count words 
+        else if (option.contains(Constants.COUNT_WORDS)) {
+            System.out.println(Constants.LOADING_DATA);
             try {
                 String[] employees = readEmployees();
 
@@ -128,18 +123,17 @@ public class EmployeeManager {
                     }
                 }
 
-                System.out.println(wordCount + " word(s) found");
+                System.out.println(wordCount + Constants.WORD_FOUND_SUFFIX);
 
-            } catch (Exception ex) {
-            }
-            System.out.println("Data Loaded.");
+            } catch (Exception ex) {}
+            System.out.println(Constants.DATA_LOADED);
         }
 
-                                                                       // Update Employee 
-        else if (args[0].contains("u")) {
-            System.out.println("Loading data...");
+                                                             //  Update employee 
+        else if (option.contains(Constants.UPDATE_EMP)) {
+            System.out.println(Constants.LOADING_DATA);
             try {
-                String updatedName = args[0].substring(1);
+                String updatedName = option.substring(1);
                 String[] employees = readEmployees();
 
                 for (int i = 0; i < employees.length; i++) {
@@ -148,18 +142,17 @@ public class EmployeeManager {
                     }
                 }
 
-                writeEmployees(String.join(",", employees));
+                writeEmployees(String.join(Constants.COMMA, employees));
 
-            } catch (Exception ex) {
-            }
-            System.out.println("Data Updated.");
+            } catch (Exception ex) {}
+            System.out.println(Constants.DATA_UPDATED);
         }
 
-                                                                          // Delete Employee 
-        else if (args[0].contains("d")) {
-            System.out.println("Loading data...");
+                                                                              //  Delete
+        else if (option.contains(Constants.DELETE_EMP)) {
+            System.out.println(Constants.LOADING_DATA);
             try {
-                String nameToDelete = args[0].substring(1);
+                String nameToDelete = option.substring(1);
                 String[] employees = readEmployees();
 
                 List<String> empList = new ArrayList<>();
@@ -170,11 +163,10 @@ public class EmployeeManager {
                     }
                 }
 
-                writeEmployees(String.join(", ", empList));
+                writeEmployees(String.join(Constants.COMMA_SPACE, empList));
 
-            } catch (Exception ex) {
-            }
-            System.out.println("Data Deleted.");
+            } catch (Exception ex) {}
+            System.out.println(Constants.DATA_DELETED);
         }
     }
 }
